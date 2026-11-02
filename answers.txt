@@ -1,0 +1,5 @@
+1. The 32 KiB array fits in the 48 KiB L1 data cache. Worst-case times were 0.024779 ms for row traversal and 0.002219 ms for column traversal, making row traversal 11.17 times slower in this run. However, the row maximum was an isolated spike; most timings were about 0.0021 ms, showing no clear row advantage.
+
+2. Column traversal became slower per element as the array exceeded cache capacities. At width 256, times rose from 0.46 ns/element for 512 KiB to 3.43 for 8 MiB and 8.21 for 64 MiB. This is consistent with poorer cache reuse and more accesses to slower memory. Performance also depended on array dimensions.
+
+3. Yes. Across three runs, median time fell from 312 ms with branches to 281 ms with cmov: a 9.9% reduction, or 1.11x speedup. The GCC -O3 C version took 276 ms, so cmov was about 1.8% slower than C by median time.
